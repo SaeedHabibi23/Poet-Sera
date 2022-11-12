@@ -1,7 +1,24 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:poet_sera/constants/color.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: kBackgroundColor,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: kBackgroundColor,
+      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarDividerColor: kBackgroundColor));
+  runApp(
+    EasyLocalization(
+        supportedLocales: const [Locale('fa')],
+        path: 'assets/translations',
+        fallbackLocale: const Locale('fa'),
+        child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -9,10 +26,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      home: SplashScreen(),
+      title: 'app_name'.tr(),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      home: const SplashScreen(),
     );
   }
 }
@@ -22,10 +42,13 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return SafeArea(
         child: Scaffold(
       body: Center(
-        child: Text("data"),
+        child: Text(
+          'app_name'.tr(),
+          style: const TextStyle(fontSize: 50),
+        ),
       ),
     ));
   }
