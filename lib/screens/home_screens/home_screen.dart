@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:poet_sera/constants/lists.dart';
+import 'package:poet_sera/screens/home_screens/poet_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -38,18 +39,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20,
                     ),
                     itemBuilder: (BuildContext context, int index) {
-                      return Card(
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, PoetDetailScreen.id,
+                              arguments: {'index_poet': index});
+                        },
+                        child: Card(
+                          elevation: 3,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25)),
                           child: Center(
-                              child: Text(
-                            poetsList[index].getPoetName(),
-                            style: const TextStyle(fontSize: 30),
-                          )));
+                            child: Text(
+                              poetsList[index].getPoetName(),
+                              style: const TextStyle(fontSize: 30),
+                            ),
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ),
