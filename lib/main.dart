@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:poet_sera/constants/color.dart';
+import 'package:poet_sera/screens/home_screens/home_screen.dart';
+import 'package:poet_sera/screens/initial_screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,8 +23,6 @@ void main() async {
   );
 }
 
-// It is My Name
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -34,24 +34,11 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      home: const SplashScreen(),
+      initialRoute: SplashScreen.id,
+      routes: {
+        SplashScreen.id: (context) => const SplashScreen(),
+        HomeScreen.id: (context) => const HomeScreen(),
+      },
     );
-  }
-}
-
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      body: Center(
-        child: Text(
-          'app_name'.tr(),
-          style: const TextStyle(fontSize: 50),
-        ),
-      ),
-    ));
   }
 }
