@@ -1,19 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:poet_sera/constants/lists.dart';
-import 'package:poet_sera/screens/home_screens/poet_biography_screen.dart';
-import 'package:poet_sera/screens/home_screens/poet_sample_poem_screen.dart';
 
-class PoetDetailScreen extends StatefulWidget {
-  const PoetDetailScreen({Key? key}) : super(key: key);
+class PoetBiographyScreen extends StatefulWidget {
+  const PoetBiographyScreen({Key? key}) : super(key: key);
 
-  static const id = '/poet_detail_screen';
+  static const id = '/poet_biography_screen';
 
   @override
-  State<PoetDetailScreen> createState() => _PoetDetailScreenState();
+  State<PoetBiographyScreen> createState() => _PoetBiographyScreenState();
 }
 
-class _PoetDetailScreenState extends State<PoetDetailScreen> {
+class _PoetBiographyScreenState extends State<PoetBiographyScreen> {
   dynamic map;
   late int _indexPoet;
   @override
@@ -38,14 +36,38 @@ class _PoetDetailScreenState extends State<PoetDetailScreen> {
               ),
               Column(
                 children: [
-                  poetDetailCardItem('biography', () {
-                    Navigator.pushNamed(context, PoetBiographyScreen.id,
-                        arguments: {'index_poet': _indexPoet});
-                  }),
-                  poetDetailCardItem('sample_poem', () {
-                    Navigator.pushNamed(context, PoetSamplePoemScreen.id,
-                        arguments: {'index_poet': _indexPoet});
-                  }),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Row(
+                      children: [
+                        Text(
+                          'biography'.tr(),
+                          style: const TextStyle(fontSize: 40),
+                        ),
+                        const Spacer(),
+                        SizedBox(
+                          width: 150,
+                          height: 150,
+                          child: Image.asset(poetsList[_indexPoet]
+                              .getPoetBiographyModel()
+                              .getPoetBiographyImage()),
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: Text(
+                      poetsList[_indexPoet]
+                          .getPoetBiographyModel()
+                          .getPoetBiography(),
+                      textAlign: TextAlign.justify,
+                      style: const TextStyle(
+                        fontSize: 24,
+                      ),
+                    ),
+                  )
                 ],
               )
             ],
@@ -68,7 +90,7 @@ class _PoetDetailScreenState extends State<PoetDetailScreen> {
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: Text(
-                text.tr(),
+                text,
                 style: const TextStyle(fontSize: 30),
               ),
             ),

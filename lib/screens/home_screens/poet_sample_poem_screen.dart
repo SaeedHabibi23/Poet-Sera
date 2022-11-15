@@ -1,19 +1,16 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:poet_sera/constants/lists.dart';
-import 'package:poet_sera/screens/home_screens/poet_biography_screen.dart';
-import 'package:poet_sera/screens/home_screens/poet_sample_poem_screen.dart';
 
-class PoetDetailScreen extends StatefulWidget {
-  const PoetDetailScreen({Key? key}) : super(key: key);
+class PoetSamplePoemScreen extends StatefulWidget {
+  const PoetSamplePoemScreen({Key? key}) : super(key: key);
 
-  static const id = '/poet_detail_screen';
+  static const id = '/poet_sample_poem_screen';
 
   @override
-  State<PoetDetailScreen> createState() => _PoetDetailScreenState();
+  State<PoetSamplePoemScreen> createState() => _PoetSamplePoemScreenState();
 }
 
-class _PoetDetailScreenState extends State<PoetDetailScreen> {
+class _PoetSamplePoemScreenState extends State<PoetSamplePoemScreen> {
   dynamic map;
   late int _indexPoet;
   @override
@@ -37,16 +34,14 @@ class _PoetDetailScreenState extends State<PoetDetailScreen> {
                 height: 50,
               ),
               Column(
-                children: [
-                  poetDetailCardItem('biography', () {
-                    Navigator.pushNamed(context, PoetBiographyScreen.id,
-                        arguments: {'index_poet': _indexPoet});
-                  }),
-                  poetDetailCardItem('sample_poem', () {
-                    Navigator.pushNamed(context, PoetSamplePoemScreen.id,
-                        arguments: {'index_poet': _indexPoet});
-                  }),
-                ],
+                children: List.generate(
+                    poetsList[_indexPoet].getPoetSamplePoem().length, (index) {
+                  return poetDetailCardItem(
+                      poetsList[_indexPoet]
+                          .getPoetSamplePoem()[0]
+                          .getSamplePoemTitle(),
+                      () {});
+                }),
               )
             ],
           ),
@@ -68,7 +63,7 @@ class _PoetDetailScreenState extends State<PoetDetailScreen> {
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: Text(
-                text.tr(),
+                text,
                 style: const TextStyle(fontSize: 30),
               ),
             ),
