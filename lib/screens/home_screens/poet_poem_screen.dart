@@ -1,23 +1,25 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:poet_sera/constants/lists.dart';
-import 'package:poet_sera/screens/home_screens/poet_poem_screen.dart';
 
-class PoetSamplePoemScreen extends StatefulWidget {
-  const PoetSamplePoemScreen({Key? key}) : super(key: key);
+class PoetPoemScreen extends StatefulWidget {
+  const PoetPoemScreen({Key? key}) : super(key: key);
 
-  static const id = '/poet_sample_poem_screen';
+  static const id = '/poet_poem_screen';
 
   @override
-  State<PoetSamplePoemScreen> createState() => _PoetSamplePoemScreenState();
+  State<PoetPoemScreen> createState() => _PoetPoemScreenState();
 }
 
-class _PoetSamplePoemScreenState extends State<PoetSamplePoemScreen> {
+class _PoetPoemScreenState extends State<PoetPoemScreen> {
   dynamic map;
   late int _indexPoet;
+  late int _index;
   @override
   Widget build(BuildContext context) {
     map = ModalRoute.of(context)!.settings.arguments;
     _indexPoet = map['index_poet'];
+    _index = map['index'];
     return SafeArea(
         child: Scaffold(
       body: Container(
@@ -35,22 +37,21 @@ class _PoetSamplePoemScreenState extends State<PoetSamplePoemScreen> {
                 height: 50,
               ),
               Column(
-                children: List.generate(
-                    poetsList[_indexPoet].getPoetSamplePoem().length, (index) {
-                  return poetDetailCardItem(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: Text(
                       poetsList[_indexPoet]
-                          .getPoetSamplePoem()[index]
-                          .getSamplePoemTitle(), () {
-                    Navigator.pushNamed(
-                      context,
-                      PoetPoemScreen.id,
-                      arguments: {
-                        'index_poet': _indexPoet,
-                        'index': index,
-                      },
-                    );
-                  });
-                }),
+                          .getPoetSamplePoem()[_index]
+                          .getSamplePoemDescription(),
+                      textAlign: TextAlign.justify,
+                      style: const TextStyle(
+                        fontSize: 24,
+                      ),
+                    ),
+                  )
+                ],
               )
             ],
           ),
