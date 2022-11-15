@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:poet_sera/constants/color.dart';
 import 'package:poet_sera/screens/home_screens/home_screen.dart';
 import 'package:poet_sera/screens/home_screens/poet_detail_screen.dart';
+import 'package:poet_sera/screens/home_screens/poet_biography_screen.dart';
 import 'package:poet_sera/screens/initial_screens/splash_screen.dart';
 
 void main() async {
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         SplashScreen.id: (context) => const SplashScreen(),
         HomeScreen.id: (context) => const HomeScreen(),
         PoetDetailScreen.id: (context) => const PoetDetailScreen(),
+        PoetBiographyScreen.id: (context) => const PoetBiographyScreen(),
       },
     );
   }
